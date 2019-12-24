@@ -1,7 +1,7 @@
 import torch
 import ipdb
 from dataset import GeneralDataset
-from utils import *
+from utils import args
 
 
 arg = args
