@@ -1,7 +1,7 @@
 import os
 import torch
 import torch.nn as nn
-from models import WingLoss, Estimator, Regressor, Discrim
+from models import Resnet18
 from dataset import GeneralDataset
 from utils import *
 import tqdm
@@ -32,28 +32,28 @@ def train(arg):
         print('# Resumed epoch:      ' + str(arg.resume_epoch))
 
     print('Creating networks ...')
-    estimator, regressor, discrim = create_model(arg, devices)
-    estimator.train()
-    regressor.train()
-    if discrim is not None:
-        discrim.train()
-    print('Creating networks done!')
+    # estimator, regressor, discrim = create_model(arg, devices)
+    # estimator.train()
+    # regressor.train()
+    # if discrim is not None:
+    #     discrim.train()
+    # print('Creating networks done!')
 
-    optimizer_estimator = torch.optim.SGD(estimator.parameters(), lr=arg.lr, momentum=arg.momentum,
-                                          weight_decay=arg.weight_decay)
-    optimizer_regressor = torch.optim.SGD(regressor.parameters(), lr=arg.lr, momentum=arg.momentum,
-                                          weight_decay=arg.weight_decay)
-    optimizer_discrim = torch.optim.SGD(discrim.parameters(), lr=arg.lr, momentum=arg.momentum,
-                                        weight_decay=arg.weight_decay) if discrim is not None else None
+    # optimizer_estimator = torch.optim.SGD(estimator.parameters(), lr=arg.lr, momentum=arg.momentum,
+    #                                       weight_decay=arg.weight_decay)
+    # optimizer_regressor = torch.optim.SGD(regressor.parameters(), lr=arg.lr, momentum=arg.momentum,
+    #                                       weight_decay=arg.weight_decay)
+    # optimizer_discrim = torch.optim.SGD(discrim.parameters(), lr=arg.lr, momentum=arg.momentum,
+    #                                     weight_decay=arg.weight_decay) if discrim is not None else None
 
-    if arg.loss_type == 'L2':
-        criterion = nn.MSELoss()
-    elif arg.loss_type == 'L1':
-        criterion = nn.L1Loss()
-    elif arg.loss_type == 'smoothL1':
-        criterion = nn.SmoothL1Loss()
-    else:
-        criterion = WingLoss(w=arg.wingloss_w, epsilon=arg.wingloss_e)
+    # if arg.loss_type == 'L2':
+    #     criterion = nn.MSELoss()
+    # elif arg.loss_type == 'L1':
+    #     criterion = nn.L1Loss()
+    # elif arg.loss_type == 'smoothL1':
+    #     criterion = nn.SmoothL1Loss()
+    # else:
+    #     criterion = WingLoss(w=arg.wingloss_w, epsilon=arg.wingloss_e)
 
     print('Loading dataset ...')
     trainset = GeneralDataset(dataset=arg.dataset)

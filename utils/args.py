@@ -3,7 +3,7 @@ import argparse
 parser = argparse.ArgumentParser(description='LAB')
 
 # dataset
-parser.add_argument('--dataset_route', default='/home/jin/new_datasets/', type=str)
+parser.add_argument('--dataset_route', default='/dataset', type=str)
 parser.add_argument('--dataset',       default='WFLW',              type=str)
 parser.add_argument('--split',         default='pose',             type=str)
 
