@@ -13,4 +13,4 @@ class GeneralDataset(data.Dataset):
         return len(self.list)
 
     def __getitem__(self, item):
-        return get_item_from(self.dataset, self.split, self.list[item])
+        return get_item_from(self.dataset, self.list[item])

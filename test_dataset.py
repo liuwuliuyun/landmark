@@ -7,7 +7,7 @@ from utils import args
 arg = args
 trainset = GeneralDataset(dataset=arg.dataset)
 dataloader = torch.utils.data.DataLoader(trainset, batch_size=arg.batch_size, shuffle=arg.shuffle,
-                                                 num_workers=arg.workers, pin_memory=True)
+                                                 num_workers=1, pin_memory=True)
 for i in dataloader:
     ipdb.set_trace()
     # i -> List of 6 items

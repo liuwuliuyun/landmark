@@ -3,7 +3,7 @@ import argparse
 parser = argparse.ArgumentParser(description='LAB')
 
 # dataset
-parser.add_argument('--dataset_route', default='/dataset', type=str)
+parser.add_argument('--dataset_route', default='D:\\WFLW_images', type=str)
 parser.add_argument('--dataset',       default='WFLW',              type=str)
 parser.add_argument('--split',         default='pose',             type=str)
 
@@ -13,7 +13,7 @@ parser.add_argument('--batch_size',    default=4,                   type=int)
 parser.add_argument('--workers',       default=8,                   type=int)
 parser.add_argument('--shuffle',       default=True,                type=bool)
 parser.add_argument('--PDB',           default=False,                type=bool)
-parser.add_argument('--RGB',           default=False,                type=bool)
+parser.add_argument('--RGB',           default=True,                type=bool)
 parser.add_argument('--trans_ratio',   default=0.1,                 type=float)
 parser.add_argument('--rotate_limit',  default=20.,                 type=float)
 parser.add_argument('--scale_ratio',   default=0.1,                 type=float)
