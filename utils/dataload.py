@@ -12,8 +12,8 @@ from scipy.interpolate import splprep, splev
 
 def get_annotations_list(dataset, split, ispdb=False):
     annotations = []
-    annotation_file = open(dataset_route[dataset] + dataset + '_' + split + '_annos.txt')
-
+    # annotation_file = open(dataset_route[dataset] + dataset + '_' + split + '_annos.txt')
+    annotation_file = open(dataset_route[dataset] + split + '_annos.txt')
     for line in range(dataset_size[dataset][split]):
         annotations.append(annotation_file.readline().rstrip().split())
     annotation_file.close()
