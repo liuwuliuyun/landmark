@@ -185,6 +185,8 @@ def get_item_from(dataset, split, annotation):
     coord_y = list(map(float, annotation[1:2*kp_num[dataset]:2]))
     coord_xy = np.array(np.float32(list(map(float, annotation[:2*kp_num[dataset]]))))
     bbox = np.array(list(map(int, annotation[-11:-7])))
+    import ipdb
+    ipdb.set_trace()
 
     translation, trans_dir, rotation, scaling, flip, gaussian_blur = get_random_transform_param(split, bbox)
 
