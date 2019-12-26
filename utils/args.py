@@ -45,13 +45,13 @@ parser.add_argument('--save_folder',   default='./weights/',        type=str)
 parser.add_argument('--save_interval', default=100,                 type=int)
 
 # model setting
-# parser.add_argument('--hour_stack',    default=4,                   type=int)
-# parser.add_argument('--msg_pass',      default=True,                type=bool)
-# parser.add_argument('--GAN',           default=True,                type=bool)
-# parser.add_argument('--fuse_stage',    default=4,                   type=int)
-# parser.add_argument('--sigma',         default=1.0,                 type=float)
-# parser.add_argument('--theta',         default=1.5,                 type=float)
-# parser.add_argument('--delta',         default=0.8,                 type=float)
+parser.add_argument('--hour_stack',    default=4,                   type=int)
+parser.add_argument('--msg_pass',      default=True,                type=bool)
+parser.add_argument('--GAN',           default=True,                type=bool)
+parser.add_argument('--fuse_stage',    default=4,                   type=int)
+parser.add_argument('--sigma',         default=1.0,                 type=float)
+parser.add_argument('--theta',         default=1.5,                 type=float)
+parser.add_argument('--delta',         default=0.8,                 type=float)
 
 # evaluate parameters
 parser.add_argument('--eval_epoch',    default=900,                 type=int)
