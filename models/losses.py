@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import numpy as np
-
+# currently not used for this project
 
 class HeatmapLoss(nn.Module):
     def __init__(self):

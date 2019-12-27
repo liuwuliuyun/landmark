@@ -1,19 +1,55 @@
 import torch
-import ipdb
+import os
+import torch.nn as nn
+import tqdm
 from dataset import GeneralDataset
 from utils import args
+from models.models import resnet18
+
+if not os.path.exists(args.save_folder):
+    os.mkdir(args.save_folder)
+if not os.path.exists(args.resume_folder):
+    os.mkdir(args.resume_folder)
 
 
-arg = args
-trainset = GeneralDataset(dataset=arg.dataset)
-dataloader = torch.utils.data.DataLoader(trainset, batch_size=arg.batch_size, shuffle=arg.shuffle,
+def train(arg):
+    print('*****  Normal Training  *****')
+    print('Training parameters:\n' +
+          '# Dataset:            ' + arg.dataset + '\n' +
+          '# Dataset split:      ' + arg.split + '\n' +
+          '# Batchsize:          ' + str(arg.batch_size) + '\n' +
+          '# Num workers:        ' + str(arg.workers) + '\n' +
+          '# PDB:                ' + str(arg.PDB) + '\n' +
+          '# Use GPU:            ' + str(arg.cuda) + '\n' +
+          '# Start lr:           ' + str(arg.lr) + '\n' +
+          '# Max epoch:          ' + str(arg.max_epoch) + '\n' +
+          '# Loss type:          ' + arg.loss_type + '\n' +
+          '# Resumed model:      ' + str(arg.resume_epoch > 0))
+    if arg.resume_epoch > 0:
+        print('# Resumed epoch:      ' + str(arg.resume_epoch))
+
+    print('Creating networks ...')
+    model = resnet18()
+    trainset = GeneralDataset(dataset=arg.dataset)
+    criterion = nn.MSELoss()
+    optimizer = torch.optim.Adam(model.parameters(), lr=arg.lr)
+
+    print('Start training ...')
+    for epoch in range(arg.resume_epoch, arg.max_epoch):
+        dataloader = torch.utils.data.DataLoader(trainset, batch_size=arg.batch_size, shuffle=arg.shuffle,
                                                  num_workers=1, pin_memory=True)
-for i in dataloader:
-    ipdb.set_trace()
-    # i -> List of 6 items
-    # i[0] batch_size*256*256 [Grey Scale Head Images]
-    # i[1] batch_size*196 [Coords of X and Y]
-    # i[2] batch_size*13*64*64 [Heatmaps]
-    # i[3] batch_size*196 [Coords of X and Y]
-    # i[4] batch_size*4 [bboxes]
-    # i[5] [list of original image filenames]
+        for data in tqdm.tqdm(dataloader):
+            input_images, coord, _, _ = data
+            # input_images = input_images.cuda(device=devices[0])
+            # coord = coord.cuda(device=devices[0])
+            estimated_coord = model(input_images)
+            loss = criterion(estimated_coord, coord)
+            loss.backward()
+            optimizer.step()
+        print(f'\nepoch: {epoch} | loss: {loss.item()}')
+        if (epoch + 1) % arg.save_interval == 0:
+            torch.save(model.state_dict(), arg.save_folder + 'resnet18_' + str(epoch + 1) + '.pth')
+
+
+if __name__ == '__main__':
+    train(args)
