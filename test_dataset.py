@@ -55,7 +55,7 @@ def train(arg):
             loss = criterion(estimated_coord, coord)
             loss.backward()
             optimizer.step()
-        print('\nepoch: {} | loss: {}'.format(epoch, loss.item()))
+        print('epoch: {} | loss: {}'.format(epoch, loss.item()))
         if (epoch + 1) % arg.save_interval == 0:
             torch.save(model.state_dict(), arg.save_folder + 'resnet18_' + str(epoch + 1) + '.pth')
 
