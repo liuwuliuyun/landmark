@@ -29,7 +29,7 @@ def train(arg):
         print('# Resumed epoch:      ' + str(arg.resume_epoch))
 
     print('Creating networks ...')
-    model = resnet18()
+    model = resnet18().cuda()
     trainset = GeneralDataset(dataset=arg.dataset)
     criterion = nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=arg.lr)
@@ -40,13 +40,13 @@ def train(arg):
                                                  num_workers=1, pin_memory=True)
         for data in tqdm.tqdm(dataloader):
             input_images, coord, _, _ = data
-            input_images = input_images.float()
-            coord = coord.float()
+            input_images = input_images.cuda().float()
+            coord = coord.cuda().float()
             estimated_coord = model(input_images)
             loss = criterion(estimated_coord, coord)
             loss.backward()
             optimizer.step()
-        print(f'\nepoch: {epoch} | loss: {loss.item()}')
+        print('\nepoch: {} | loss: {}'.format(epoch, loss.item()))
         if (epoch + 1) % arg.save_interval == 0:
             torch.save(model.state_dict(), arg.save_folder + 'resnet18_' + str(epoch + 1) + '.pth')
 
