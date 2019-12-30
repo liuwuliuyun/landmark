@@ -33,11 +33,12 @@ def train(arg):
     trainset = GeneralDataset(dataset=arg.dataset)
     criterion = nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=arg.lr)
-
+    normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                     std=[0.229, 0.224, 0.225])
     print('Start training ...')
     for epoch in range(arg.resume_epoch, arg.max_epoch):
         dataloader = torch.utils.data.DataLoader(trainset, batch_size=arg.batch_size, shuffle=arg.shuffle,
-                                                 num_workers=1, pin_memory=True)
+                                                 num_workers=1, pin_memory=True, normalize=normalize)
         for data in tqdm.tqdm(dataloader):
             input_images, coord, _, _ = data
             input_images = input_images.cuda().float()
