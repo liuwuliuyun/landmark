@@ -1,9 +1,13 @@
 import argparse
+import platform
 
 parser = argparse.ArgumentParser(description='LAB')
 
 # dataset
-parser.add_argument('--dataset_route', default='/dataset', type=str)
+if 'Windows' in platform.platform():
+    parser.add_argument('--dataset_route', default='D:\\WFLW_images', type=str)
+else:
+    parser.add_argument('--dataset_route', default='/dataset', type=str)
 parser.add_argument('--dataset',       default='WFLW',              type=str)
 parser.add_argument('--split',         default='pose',             type=str)
 

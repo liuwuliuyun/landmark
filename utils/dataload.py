@@ -78,13 +78,13 @@ def get_cropped_coords(crop_matrix, coord_x, coord_y):
     return np.array(out)
 
 
-
 def get_item_from(dataset, annotation):
+    mean = np.array([0.485, 0.456, 0.406])
+    std = np.array([0.229, 0.224, 0.225])
     pic = cv2.imread(dataset_route[dataset]+annotation[-1])
     pic = convert_img_to_gray(pic) if not args.RGB else pic
     coord_x = list(map(float, annotation[:2*kp_num[dataset]:2]))
     coord_y = list(map(float, annotation[1:2*kp_num[dataset]:2]))
-    # coord_xy = np.array(np.float32(list(map(float, annotation[:2*kp_num[dataset]]))))
     bbox = np.array(list(map(int, annotation[-11:-7])))
     position_before = np.float32([[int(bbox[0]), int(bbox[1])], [int(bbox[0]), int(bbox[3])], [int(bbox[2]), int(bbox[3])]])
     position_after = np.float32([[0, 0],
@@ -92,9 +92,8 @@ def get_item_from(dataset, annotation):
                                  [args.crop_size - 1, args.crop_size - 1]])
     crop_matrix = cv2.getAffineTransform(position_before, position_after)
     pic_crop = cv2.warpAffine(pic, crop_matrix, (args.crop_size, args.crop_size))
-    pic_crop.astype(np.float32)
+    pic_crop = (pic_crop / 255.0 - mean) / std
     coord_cropped = get_cropped_coords(crop_matrix, coord_x, coord_y)
-    coord_cropped.astype(np.float32)
 
     # for i in range(98):
     #     x = coord_cropped[i*2]

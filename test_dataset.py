@@ -2,6 +2,7 @@ import torch
 import os
 import torch.nn as nn
 import tqdm
+import platform
 import torchvision.transforms as transforms
 from dataset import GeneralDataset
 from utils import args
@@ -30,20 +31,26 @@ def train(arg):
         print('# Resumed epoch:      ' + str(arg.resume_epoch))
 
     print('Creating networks ...')
-    model = resnet18().cuda()
+    if 'Windows' in platform.platform():
+        model = resnet18()
+    else:
+        model = resnet18().cuda()
     trainset = GeneralDataset(dataset=arg.dataset)
     criterion = nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=arg.lr)
-    normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                                     std=[0.229, 0.224, 0.225])
+
     print('Start training ...')
     for epoch in range(arg.resume_epoch, arg.max_epoch):
         dataloader = torch.utils.data.DataLoader(trainset, batch_size=arg.batch_size, shuffle=arg.shuffle,
-                                                 num_workers=1, pin_memory=True, normalize)
+                                                 num_workers=1, pin_memory=True)
         for data in tqdm.tqdm(dataloader):
             input_images, coord, _, _ = data
-            input_images = input_images.cuda().float()
-            coord = coord.cuda().float()
+            if 'Windows' in platform.platform():
+                input_images = input_images.float()
+                coord = coord.float()
+            else:
+                input_images = input_images.cuda().float()
+                coord = coord.cuda().float()
             estimated_coord = model(input_images)
             loss = criterion(estimated_coord, coord)
             loss.backward()
