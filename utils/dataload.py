@@ -92,8 +92,9 @@ def get_item_from(dataset, annotation):
                                  [args.crop_size - 1, args.crop_size - 1]])
     crop_matrix = cv2.getAffineTransform(position_before, position_after)
     pic_crop = cv2.warpAffine(pic, crop_matrix, (args.crop_size, args.crop_size))
-    # pic_crop.astype(dtype=np.float32)
+    pic_crop.astype(np.float32)
     coord_cropped = get_cropped_coords(crop_matrix, coord_x, coord_y)
+    coord_cropped.astype(np.float32)
 
     # for i in range(98):
     #     x = coord_cropped[i*2]
