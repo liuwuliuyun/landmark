@@ -2,6 +2,7 @@ import torch
 import os
 import torch.nn as nn
 import tqdm
+import torchvision.transforms as transforms
 from dataset import GeneralDataset
 from utils import args
 from models.models import resnet18
@@ -38,7 +39,7 @@ def train(arg):
     print('Start training ...')
     for epoch in range(arg.resume_epoch, arg.max_epoch):
         dataloader = torch.utils.data.DataLoader(trainset, batch_size=arg.batch_size, shuffle=arg.shuffle,
-                                                 num_workers=1, pin_memory=True, normalize=normalize)
+                                                 num_workers=1, pin_memory=True, normalize)
         for data in tqdm.tqdm(dataloader):
             input_images, coord, _, _ = data
             input_images = input_images.cuda().float()
