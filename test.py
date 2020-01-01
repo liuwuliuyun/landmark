@@ -28,14 +28,14 @@ def test(arg):
     # load trained model
     weight_path = './weights/resnet18_2000.pth'
     model = resnet18().cuda()
-    model.load_state_dict(torch.load(weight_path))
+    model.load_state_dict(torch.load(weight_path), strict=True)
     model.eval()
     # start testing
     with torch.no_grad():
         for data in dataloader:
             # start = time.time()
             input_image, coord, _, _ = data
-            input_image.float().cuda()
+            input_image.cuda().float()
             estimated_coord = model(input_image)
             input_image.transpose((1, 2, 0))
             input_image.detach().cpu.squeeze().numpy()
