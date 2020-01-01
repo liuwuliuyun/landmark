@@ -102,4 +102,4 @@ def get_item_from(dataset, annotation):
     # cv2.imshow('pic', pic_crop)
     # cv2.waitKey()
     # cv2.destroyWindow('pic')
-    return pic_crop.transpose((2,0,1)), coord_cropped, bbox, annotation[-1]
+    return pic_crop.transpose((2, 0, 1)), coord_cropped, bbox, annotation[-1]
