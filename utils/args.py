@@ -9,7 +9,7 @@ if 'Windows' in platform.platform():
 else:
     parser.add_argument('--dataset_route', default='/dataset', type=str)
 parser.add_argument('--dataset',       default='WFLW',              type=str)
-parser.add_argument('--split',         default='pose',             type=str)
+parser.add_argument('--split',         default='test',             type=str)
 
 # dataloader
 parser.add_argument('--crop_size',     default=256,                 type=int)
