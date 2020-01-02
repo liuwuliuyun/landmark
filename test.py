@@ -3,6 +3,7 @@ import cv2
 import numpy as np
 import tqdm
 import time
+import ipdb
 from dataset import GeneralDataset
 from utils import args
 from models.models import resnet18
@@ -16,9 +17,7 @@ def show_image(input_image, coord):
         x = coord[2*i]
         y = coord[2*i+1]
         cv2.circle(input_image, (int(x), int(y)), 1, (0, 255, 0))
-    cv2.imshow('test_pic', input_image)
-    cv2.waitKey()
-    cv2.destroyWindow('test_pic')
+    cv2.imwrite('test_pic.jpg', input_image)
 
 
 def test(arg):
@@ -35,12 +34,15 @@ def test(arg):
         for data in dataloader:
             # start = time.time()
             input_image, coord, _, _ = data
-            input_image.cuda().float()
+            input_image = input_image.cuda().float()
+            
             estimated_coord = model(input_image)
-            input_image.transpose((1, 2, 0))
-            input_image.detach().cpu.squeeze().numpy()
-            estimated_coord.detach().cpu().squeeze().numpy()
+            input_image = input_image.detach().cpu().squeeze().numpy()
+            estimated_coord = estimated_coord.detach().cpu().squeeze().numpy()
+            ipdb.set_trace()
+            input_image = input_image.transpose((1, 2, 0))
             show_image(input_image, estimated_coord)
+            cv2.waitKey()
 
 
 if __name__ == '__main__':
