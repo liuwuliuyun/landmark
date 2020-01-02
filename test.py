@@ -1,23 +1,27 @@
 import torch
 import cv2
 import numpy as np
-import tqdm
 import time
-import ipdb
 from dataset import GeneralDataset
 from utils import args
 from models.models import resnet18
 
 
-def show_image(input_image, coord):
+def show_image(image, coord):
     mean = np.array([0.485, 0.456, 0.406])
     std = np.array([0.229, 0.224, 0.225])
-    input_image = (input_image * std + mean) * 255.0
+    res_image = ((image * std + mean) * 255.0).astype(np.uint8).copy()
+    # cv2.circle(res_image, (125, 125), 3, (0, 255, 0))
+    # cv2.imshow('pictest', res_image)
+    # cv2.waitKey()
     for i in range(98):
         x = coord[2*i]
         y = coord[2*i+1]
-        cv2.circle(input_image, (int(x), int(y)), 1, (0, 255, 0))
-    cv2.imwrite('test_pic.jpg', input_image)
+        # print('x is {} y is {}'.format(x, y))
+        cv2.circle(res_image, (int(x), int(y)), 3, (0, 255, 255))
+    cv2.imshow('final_pic', res_image)
+    cv2.waitKey()
+    cv2.destroyAllWindows()
 
 
 def test(arg):
@@ -25,7 +29,7 @@ def test(arg):
     testset = GeneralDataset(dataset=arg.dataset, split=arg.split)
     dataloader = torch.utils.data.DataLoader(testset, batch_size=1, shuffle=False, pin_memory=True)
     # load trained model
-    weight_path = './weights/resnet18_2000.pth'
+    weight_path = '.\\weights\\resnet18_2000.pth'
     model = resnet18().cuda()
     model.load_state_dict(torch.load(weight_path), strict=True)
     model.eval()
@@ -35,14 +39,11 @@ def test(arg):
             # start = time.time()
             input_image, coord, _, _ = data
             input_image = input_image.cuda().float()
-            
             estimated_coord = model(input_image)
-            input_image = input_image.detach().cpu().squeeze().numpy()
+            # input_image = input_image.detach().cpu().squeeze().numpy()
             estimated_coord = estimated_coord.detach().cpu().squeeze().numpy()
-            ipdb.set_trace()
-            input_image = input_image.transpose((1, 2, 0))
-            show_image(input_image, estimated_coord)
-            cv2.waitKey()
+            # input_image = input_image.transpose((1, 2, 0))
+            # show_image(input_image, estimated_coord)
 
 
 if __name__ == '__main__':
