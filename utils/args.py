@@ -35,7 +35,7 @@ parser.add_argument('--step_values',   default=[1000, 1500],        type=list)
 parser.add_argument('--max_epoch',     default=2000,                type=int)
 
 # losses setting
-parser.add_argument('--loss_type',     default='smoothL1',          type=str,
+parser.add_argument('--loss_type',     default='L2',          type=str,
                     choices=['L1', 'L2', 'smoothL1', 'wingloss'])
 parser.add_argument('--wingloss_w',    default=10,                  type=int)
 parser.add_argument('--wingloss_e',    default=2,                   type=int)
@@ -60,7 +60,7 @@ parser.add_argument('--delta',         default=0.8,                 type=float)
 # evaluate parameters
 parser.add_argument('--eval_epoch',    default=900,                 type=int)
 parser.add_argument('--max_threshold', default=0.1,                 type=float)
-parser.add_argument('--norm_way',      default='inter_ocular',      type=str,
+parser.add_argument('--norm_way',      default='face_size',      type=str,
                     choices=['inter_pupil', 'inter_ocular', 'face_size'])
 parser.add_argument('--eval_visual',   default=True,               type=bool)
 parser.add_argument('--save_img',      default=True,                type=bool)

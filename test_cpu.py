@@ -7,16 +7,25 @@ from utils import args
 from models.models import resnet18
 
 
-def show_image(image, coord):
+def show_image(image, coord, ground_truth):
+    image = image.squeeze().numpy().transpose((1, 2, 0))
     mean = np.array([0.485, 0.456, 0.406])
     std = np.array([0.229, 0.224, 0.225])
     res_image = ((image * std + mean) * 255.0).astype(np.uint8).copy()
+    gt_image = res_image.copy()
     for i in range(98):
         x = coord[2*i]
         y = coord[2*i+1]
         # print('x is {} y is {}'.format(x, y))
         cv2.circle(res_image, (int(x), int(y)), 3, (0, 255, 255))
-    cv2.imshow('final_pic', res_image)
+    for i in range(98):
+        x = ground_truth[2*i]
+        y = ground_truth[2*i+1]
+        # print('x is {} y is {}'.format(x, y))
+        cv2.circle(gt_image, (int(x), int(y)), 3, (0, 0, 255))
+    cv2.imshow('landmark detection results', res_image)
+    cv2.waitKey()
+    cv2.imshow('landmark ground truth', gt_image)
     cv2.waitKey()
     cv2.destroyAllWindows()
 
@@ -37,10 +46,9 @@ def test(arg):
             input_image, coord, _, _ = data
             input_image = input_image.float()
             estimated_coord = model(input_image)
-            input_image = input_image.squeeze().numpy()
             estimated_coord = estimated_coord.squeeze().numpy()
-            input_image = input_image.transpose((1, 2, 0))
-            show_image(input_image, estimated_coord)
+            coord = coord.squeeze().numpy()
+            show_image(input_image, estimated_coord, coord)
 
 
 if __name__ == '__main__':
