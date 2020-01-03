@@ -15,7 +15,7 @@ cd this_dir
 # All training arguments can be found at ./utils/args.py
 python3 train.py --dataset_route path_to_dataset_root --dataset 'WFLW' --split 'train'
 # For testing on cpu
-python3 test_cpu.py --dataset_route path_to_dataset_root --dataset 'WFLW' --split 'train'
+python3 test_cpu.py --dataset_route path_to_dataset_root --dataset 'WFLW' --split 'test'
 ```
 #### Training Dataet
 [WLFW Dateset](https://wywu.github.io/projects/LAB/WFLW.html)
