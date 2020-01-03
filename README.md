@@ -2,6 +2,9 @@
 ## Network
 ### Resnet-18
 #### Env Install
+Python 3.7.4 for cpu testing
+
+Python 3.5.2 for gpu testing
 ```shell script
 # For cpu testing
 pip3 install ./requirements_cpu.txt
@@ -26,11 +29,11 @@ python3 test_cpu.py --dataset_route path_to_dataset_root --dataset 'WFLW' --spli
 #### Training Setup and testing results
 ##### Experiment 1
 
-Training setup
+Training setup (TODO: only lr is used for adam)
 
 | Training epochs | Training batchsize |  LR  | Weight decay | Opt | Step Value |
 | :-------------: | :----------------: | ---  | :----------: | --- | :---------: |
-| 2000 | 4 | 2e-6 | 5e-5 | Adam | 1000, 1500 |
+| 2000 | 4 | 2e-6 | 0 | Adam | None |
 
 Testing result
 
@@ -45,7 +48,7 @@ Training setup
 
 | Training epochs | Training batchsize |  LR  | Weight decay | Opt | Step Value |
 | :-------------: | :----------------: | ---  | :----------: | --- | :---------: |
-| 4000 | 4 | 1e-6 | 5e-6 | Adam | 2000, 3000 |
+| 4000 | 4 | 1e-6 | 0 | Adam | None |
 
 Testing result (Ongoing)
 

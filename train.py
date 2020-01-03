@@ -36,7 +36,7 @@ def train(arg):
         model = resnet18().cuda()
     trainset = GeneralDataset(dataset=arg.dataset)
     criterion = nn.MSELoss()
-    optimizer = torch.optim.Adam(model.parameters(), lr=arg.lr)
+    optimizer = torch.optim.Adam(model.parameters(), lr=arg.lr, weight_decay=arg.weight_decay)
 
     print('Start training ...')
     for epoch in range(arg.resume_epoch, arg.max_epoch):
