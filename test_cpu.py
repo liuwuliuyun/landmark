@@ -11,9 +11,6 @@ def show_image(image, coord):
     mean = np.array([0.485, 0.456, 0.406])
     std = np.array([0.229, 0.224, 0.225])
     res_image = ((image * std + mean) * 255.0).astype(np.uint8).copy()
-    # cv2.circle(res_image, (125, 125), 3, (0, 255, 0))
-    # cv2.imshow('pictest', res_image)
-    # cv2.waitKey()
     for i in range(98):
         x = coord[2*i]
         y = coord[2*i+1]
