@@ -8,6 +8,7 @@ from sklearn.metrics import auc
 from utils.dataset_info import *
 from models.models import resnet18
 
+# TODO: debug on GPU
 
 def show_image(image, coord):
     image = image.squeeze().numpy().transpose((1, 2, 0))
@@ -96,8 +97,8 @@ def evaluate(arg):
     # load trained model
     print('Loading network ...')
     weight_path = '.\\weights\\resnet18_2000.pth'
-    model = resnet18()
-    model.load_state_dict(torch.load(weight_path, map_location='cpu'), strict=True)
+    model = resnet18().cuda()
+    model.load_state_dict(torch.load(weight_path), strict=True)
     model.eval()
     print('Loading network done!\nStart testing ...')
 
@@ -112,12 +113,14 @@ def evaluate(arg):
 
             input_image, coord_ground_truth, bbox, file_name = data
             bbox = bbox.squeeze().numpy()
-            input_image = input_image.float()
+            input_image = input_image.cuda().float()
             # TODO: use coord_xy by get_item in dataload.py. Current use face_size normalization other two is not right
             error_normalize_factor = calc_normalize_factor(arg.dataset, coord_ground_truth.numpy(), arg.norm_way) \
                 if arg.norm_way in ['inter_pupil', 'inter_ocular'] else (bbox[2] - bbox[0])
+            torch.cuda.synchronize()
             start = time.time()
             estimated_coord = model(input_image)
+            torch.cuda.synchronize()
             time_records.append(time.time() - start)
             estimated_coord = estimated_coord.squeeze().numpy()
             error_rate_i = calc_error_rate_i(arg.dataset, estimated_coord, coord_ground_truth.squeeze().numpy(), error_normalize_factor)
