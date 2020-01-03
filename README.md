@@ -1,6 +1,22 @@
 # Facial Landmark Detection
 ## Network
 ### Resnet-18
+#### Env Install
+```shell script
+# For cpu testing
+pip3 install ./requirements_cpu.txt
+# For gpu training
+pip3 install ./requirements_gpu.txt
+```
+#### Training and testing instructions
+```shell script
+cd this_dir
+# For training, model will save to ./weights
+# All training rguments can be changed at ./utils/args.py
+python3 train.py
+# For testing on cpu
+python3 test_cpu.py
+```
 #### Training Dataet
 [WLFW Dateset](https://wywu.github.io/projects/LAB/WFLW.html)
 #### Architecture
