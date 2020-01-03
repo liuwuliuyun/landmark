@@ -12,10 +12,10 @@ pip3 install ./requirements_gpu.txt
 ```shell script
 cd this_dir
 # For training, model will save to ./weights
-# All training rguments can be changed at ./utils/args.py
-python3 train.py
+# All training arguments can be found at ./utils/args.py
+python3 train.py --dataset_route path_to_dataset_root --dataset 'WFLW' --split 'train'
 # For testing on cpu
-python3 test_cpu.py
+python3 test_cpu.py --dataset_route path_to_dataset_root --dataset 'WFLW' --split 'train'
 ```
 #### Training Dataet
 [WLFW Dateset](https://wywu.github.io/projects/LAB/WFLW.html)
