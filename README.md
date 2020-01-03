@@ -17,7 +17,7 @@ python3 train.py --dataset_route path_to_dataset_root --dataset 'WFLW' --split '
 # For testing on cpu
 python3 test_cpu.py --dataset_route path_to_dataset_root --dataset 'WFLW' --split 'test'
 ```
-#### Training Dataet
+#### Training Dataset
 [WLFW Dateset](https://wywu.github.io/projects/LAB/WFLW.html)
 #### Architecture
 1. Increase input size to 256*256
