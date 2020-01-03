@@ -39,9 +39,14 @@ Testing result (Ongoing)
 
 
 #### TODO list
+
 - [x] Find out dataset defintion -- output sample images to 256*256 -- label landmarks and output heatmap (Finished 2019.12.26)
 - [x] Defind model and loss -- model backbone resnet-18 -- l2 loss (Finished 2019.12.30)
 - [x] Training and testing process -- with tensorboard (Finished 2020.01.02)
 - [ ] Testing on 300w
 - [ ] Quantilization model
 - [ ] MNN Infer
+
+#### References
+1. Training and testing code are modified from [Look_At_Boundary_PyTorch](https://github.com/facial-landmarks-localization-challenge/Look_At_Boundary_PyTorch)
+2. Original paper and code [2018CVPR](https://github.com/wywu/LAB)
