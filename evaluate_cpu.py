@@ -95,7 +95,7 @@ def evaluate(arg):
     dataloader = torch.utils.data.DataLoader(testset, batch_size=1, shuffle=False, pin_memory=True)
     # load trained model
     print('Loading network ...')
-    weight_path = '.\\weights\\resnet18_512.pth'
+    weight_path = '.\\weights\\resnet18_exp02_2700.pth'
     model = resnet18()
     model.load_state_dict(torch.load(weight_path, map_location='cpu'), strict=True)
     model.eval()

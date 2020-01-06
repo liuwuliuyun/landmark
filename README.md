@@ -50,13 +50,13 @@ Training setup
 
 | Training epochs | Training batchsize |  LR  | Weight decay | Opt | Step Value |
 | :-------------: | :----------------: | ---  | :----------: | --- | :---------: |
-| 2000 | 4 | 1e-6 | 0 | Adam | None |
+| 2700 | 4 | 1e-6 | 0 | Adam | None |
 
 Testing result
 
 | Mean Error | Failure Rate | AUC | Normalized Way |
 | :-------------: | :----------: | --- | :---:|
-| 13.80% | 59.28% | 0.1629 | Face Size |
+| 14.04% | 59.92% | 0.1606 | Face Size |
 
 
 ##### Baseline (by Dongfeng Yu)
