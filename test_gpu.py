@@ -4,7 +4,7 @@ import numpy as np
 import time
 from dataset import GeneralDataset
 from utils import args
-from models.models import resnet18
+from models.resnet import resnet18
 
 # TODO run and debug on GPU
 

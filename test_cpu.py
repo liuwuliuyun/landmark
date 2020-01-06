@@ -4,7 +4,7 @@ import numpy as np
 import time
 from dataset import GeneralDataset
 from utils import args
-from models.models import resnet18
+from models.resnet import resnet18
 
 
 def show_image(image, coord, ground_truth):
@@ -35,7 +35,7 @@ def test(arg):
     testset = GeneralDataset(dataset=arg.dataset, split=arg.split)
     dataloader = torch.utils.data.DataLoader(testset, batch_size=1, shuffle=False, pin_memory=True)
     # load trained model
-    weight_path = '.\\weights\\resnet18_2000.pth'
+    weight_path = '.\\weights\\resnet18_512.pth'
     model = resnet18()
     model.load_state_dict(torch.load(weight_path, map_location='cpu'), strict=True)
     model.eval()

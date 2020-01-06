@@ -6,7 +6,7 @@ Python 3.7.4 for cpu testing
 
 Python 3.5.2 for gpu testing
 ```shell script
-# For cpu testing
+# For cpu testing and evaluation
 pip3 install ./requirements_cpu.txt
 # For gpu training
 pip3 install ./requirements_gpu.txt
@@ -19,6 +19,8 @@ cd this_dir
 python3 train.py --dataset_route path_to_dataset_root --dataset 'WFLW' --split 'train'
 # For testing on cpu
 python3 test_cpu.py --dataset_route path_to_dataset_root --dataset 'WFLW' --split 'test'
+# For evaluation on cpu
+python3 evaluation_cpu.py --dataset_route path_to_dataset_root --dataset 'WFLW' --split 'test'
 ```
 #### Training Dataset
 [WLFW Dateset](https://wywu.github.io/projects/LAB/WFLW.html)
@@ -29,7 +31,7 @@ python3 test_cpu.py --dataset_route path_to_dataset_root --dataset 'WFLW' --spli
 #### Training Setup and testing results
 ##### Experiment 1
 
-Training setup (TODO: only lr is used for adam)
+Training setup
 
 | Training epochs | Training batchsize |  LR  | Weight decay | Opt | Step Value |
 | :-------------: | :----------------: | ---  | :----------: | --- | :---------: |
@@ -37,7 +39,7 @@ Training setup (TODO: only lr is used for adam)
 
 Testing result
 
-| Mean Error Rate | Failure Rate | AUC |
+| Mean Error | Failure Rate | AUC |
 | :-------------: | :----------: | --- |
 | 13.80% | 59.28% | 0.1629 |
 
@@ -52,9 +54,48 @@ Training setup
 
 Testing result (Ongoing)
 
-| Mean Error Rate | Failure Rate | AUC |
+| Mean Error | Failure Rate | AUC |
 | :-------------: | :----------: | --- |
 | None | None | None |
+
+
+##### Baseline (by Dongfeng Yu)
+Training loss changed to log(1 + L2loss)
+
+Training setup
+
+| Training epochs | Training batchsize |  LR  | Weight decay | Opt | Step Value |
+| :-------------: | :----------------: | ---  | :----------: | --- | :---------: |
+| 512 | 4 | 2e-6 | 0 | Adam | None |
+
+Testing result (Ongoing)
+
+| Mean Error | Failure Rate | AUC |
+| :-------------: | :----------: | --- |
+| 10.67% | 38.56% | 0.2735 |
+
+
+### MobileNet-V3 (Large)
+#### Architecture
+1. Increase input size to 256*256
+2. Remove avepooling layer
+3. Change output size to 192 (x1, y1, ... , x98, y98)
+#### Training Setup and testing results
+##### Experiment 1
+Training loss changed to log(1 + L2loss)
+
+Training setup
+
+| Training epochs | Training batchsize |  LR  | Weight decay | Opt | Step Value |
+| :-------------: | :----------------: | ---  | :----------: | --- | :---------: |
+| 2000 | 4 | 2e-6 | 0 | SGD | 1000, 1500 |
+
+Testing result
+
+| Mean Error | Failure Rate | AUC |
+| :-------------: | :----------: | --- |
+| None | None | None |
+
 
 
 #### TODO list

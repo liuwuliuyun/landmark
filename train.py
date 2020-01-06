@@ -6,7 +6,8 @@ import platform
 import torchvision.transforms as transforms
 from dataset import GeneralDataset
 from utils import args
-from models.models import resnet18
+from models.resnet import resnet18
+from torch.utils.tensorboard import SummaryWriter
 
 if not os.path.exists(args.save_folder):
     os.mkdir(args.save_folder)
@@ -39,6 +40,8 @@ def train(arg):
     optimizer = torch.optim.Adam(model.parameters(), lr=arg.lr, weight_decay=arg.weight_decay)
 
     print('Start training ...')
+    writer = SummaryWriter()
+    num_step = 0
     for epoch in range(arg.resume_epoch, arg.max_epoch):
         dataloader = torch.utils.data.DataLoader(trainset, batch_size=arg.batch_size, shuffle=arg.shuffle,
                                                  num_workers=1, pin_memory=True)
@@ -52,8 +55,13 @@ def train(arg):
                 coord = coord.cuda().float()
             estimated_coord = model(input_images)
             loss = criterion(estimated_coord, coord)
+            loss_ = loss.item()
+            loss = torch.log(1 + loss)
             loss.backward()
             optimizer.step()
+            num_step += 1
+            if num_step % 10 == 0:
+                writer.add_scalar('loss', loss_, num_step)
         print('epoch: {} | loss: {}'.format(epoch, loss.item()))
         if (epoch + 1) % arg.save_interval == 0:
             torch.save(model.state_dict(), arg.save_folder + 'resnet18_' + str(epoch + 1) + '.pth')

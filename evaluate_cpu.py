@@ -6,7 +6,7 @@ import tqdm
 from dataset import GeneralDataset
 from sklearn.metrics import auc
 from utils.dataset_info import *
-from models.models import resnet18
+from models.resnet import resnet18
 
 
 def show_image(image, coord):
