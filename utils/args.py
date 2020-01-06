@@ -58,6 +58,7 @@ parser.add_argument('--theta',         default=1.5,                 type=float)
 parser.add_argument('--delta',         default=0.8,                 type=float)
 
 # evaluate parameters
+parser.add_argument('--eval_model_path', default='.\\weights\\resnet18.pth', type=str)
 parser.add_argument('--eval_epoch',    default=900,                 type=int)
 parser.add_argument('--max_threshold', default=0.1,                 type=float)
 parser.add_argument('--norm_way',      default='inter_pupil',      type=str,

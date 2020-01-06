@@ -13,14 +13,22 @@ pip3 install ./requirements_gpu.txt
 ```
 #### Training and testing instructions
 ```shell script
-cd this_dir
+cd ROOT_DIR_OF_PRJ
 # For training, model will save to ./weights
 # All training arguments can be found at ./utils/args.py
-python3 train.py --dataset_route path_to_dataset_root --dataset 'WFLW' --split 'train'
+python3 train.py --dataset_route path_to_dataset_root \
+                 --dataset 'WFLW' \
+                 --split 'train'
 # For testing on cpu
-python3 test_cpu.py --dataset_route path_to_dataset_root --dataset 'WFLW' --split 'test'
+python3 test_cpu.py --dataset_route path_to_dataset_root \
+                    --dataset 'WFLW' \
+                    --split 'test'
 # For evaluation on cpu
-python3 evaluation_cpu.py --dataset_route path_to_dataset_root --dataset 'WFLW' --split 'test'
+python3 evaluation_cpu.py --dataset_route path_to_dataset_root \
+                          --dataset 'WFLW' \ 
+                          --split 'test'\ 
+                          --eval_model_path = model_path \
+                          --norm_way = 'face_size'
 ```
 #### Training Dataset
 [WLFW Dateset](https://wywu.github.io/projects/LAB/WFLW.html)
