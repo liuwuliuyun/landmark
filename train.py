@@ -46,7 +46,7 @@ def train(arg):
         dataloader = torch.utils.data.DataLoader(trainset, batch_size=arg.batch_size, shuffle=arg.shuffle,
                                                  num_workers=1, pin_memory=True)
         for data in tqdm.tqdm(dataloader):
-            input_images, coord, _, _ = data
+            input_images, coord, _, _, _ = data
             if 'Windows' in platform.platform():
                 input_images = input_images.float()
                 coord = coord.float()

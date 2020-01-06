@@ -60,7 +60,7 @@ parser.add_argument('--delta',         default=0.8,                 type=float)
 # evaluate parameters
 parser.add_argument('--eval_epoch',    default=900,                 type=int)
 parser.add_argument('--max_threshold', default=0.1,                 type=float)
-parser.add_argument('--norm_way',      default='face_size',      type=str,
+parser.add_argument('--norm_way',      default='inter_pupil',      type=str,
                     choices=['inter_pupil', 'inter_ocular', 'face_size'])
 parser.add_argument('--eval_visual',   default=True,               type=bool)
 parser.add_argument('--save_img',      default=True,                type=bool)

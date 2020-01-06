@@ -43,7 +43,7 @@ def test(arg):
     with torch.no_grad():
         for data in dataloader:
             # start = time.time()
-            input_image, coord, _, _ = data
+            input_image, coord, _, _, _ = data
             input_image = input_image.float()
             estimated_coord = model(input_image)
             estimated_coord = estimated_coord.squeeze().numpy()

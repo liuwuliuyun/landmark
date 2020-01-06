@@ -39,9 +39,9 @@ Training setup
 
 Testing result
 
-| Mean Error | Failure Rate | AUC |
-| :-------------: | :----------: | --- |
-| 13.80% | 59.28% | 0.1629 |
+| Mean Error | Failure Rate | AUC | Normalized Way |
+| :-------------: | :----------: | --- | :---:|
+| 13.80% | 59.28% | 0.1629 | Face Size |
 
 ##### Experiment 2
 
@@ -50,13 +50,13 @@ Training setup
 
 | Training epochs | Training batchsize |  LR  | Weight decay | Opt | Step Value |
 | :-------------: | :----------------: | ---  | :----------: | --- | :---------: |
-| 4000 | 4 | 1e-6 | 0 | Adam | None |
+| 2000 | 4 | 1e-6 | 0 | Adam | None |
 
-Testing result (Ongoing)
+Testing result
 
-| Mean Error | Failure Rate | AUC |
-| :-------------: | :----------: | --- |
-| None | None | None |
+| Mean Error | Failure Rate | AUC | Normalized Way |
+| :-------------: | :----------: | --- | :---:|
+| 13.80% | 59.28% | 0.1629 | Face Size |
 
 
 ##### Baseline (by Dongfeng Yu)
@@ -70,15 +70,14 @@ Training setup
 
 Testing result (Ongoing)
 
-| Mean Error | Failure Rate | AUC |
-| :-------------: | :----------: | --- |
-| 10.67% | 38.56% | 0.2735 |
+| Mean Error | Failure Rate | AUC | Normalized Way |
+| :-------------: | :----------: | --- |:---:|
+| 10.67% | 38.56% | 0.2735 | Face Size |
 
 
-### MobileNet-V3 (Large)
+### MobileNet-V2
 #### Architecture
 1. Increase input size to 256*256
-2. Remove avepooling layer
 3. Change output size to 192 (x1, y1, ... , x98, y98)
 #### Training Setup and testing results
 ##### Experiment 1
@@ -88,13 +87,13 @@ Training setup
 
 | Training epochs | Training batchsize |  LR  | Weight decay | Opt | Step Value |
 | :-------------: | :----------------: | ---  | :----------: | --- | :---------: |
-| 2000 | 4 | 2e-6 | 0 | SGD | 1000, 1500 |
+| 2000 | 4 | 2e-6 | 0 | Adam | None |
 
 Testing result
 
-| Mean Error | Failure Rate | AUC |
-| :-------------: | :----------: | --- |
-| None | None | None |
+| Mean Error | Failure Rate | AUC | Normalized Way |
+| :-------------: | :----------: | --- |:---:|
+| None | None | None | Face Size |
 
 
 

@@ -85,6 +85,7 @@ def get_item_from(dataset, annotation):
     pic = convert_img_to_gray(pic) if not args.RGB else pic
     coord_x = list(map(float, annotation[:2*kp_num[dataset]:2]))
     coord_y = list(map(float, annotation[1:2*kp_num[dataset]:2]))
+    coord_xy = np.array(np.float32(list(map(float, annotation[:2*kp_num[dataset]]))))
     bbox = np.array(list(map(int, annotation[-11:-7])))
     position_before = np.float32([[int(bbox[0]), int(bbox[1])], [int(bbox[0]), int(bbox[3])], [int(bbox[2]), int(bbox[3])]])
     position_after = np.float32([[0, 0],
@@ -102,4 +103,4 @@ def get_item_from(dataset, annotation):
     # cv2.imshow('pic', pic_crop)
     # cv2.waitKey()
     # cv2.destroyWindow('pic')
-    return pic_crop.transpose((2, 0, 1)), coord_cropped, bbox, annotation[-1]
+    return pic_crop.transpose((2, 0, 1)), coord_cropped, coord_xy, bbox, annotation[-1]

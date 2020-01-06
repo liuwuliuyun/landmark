@@ -95,7 +95,7 @@ def evaluate(arg):
     dataloader = torch.utils.data.DataLoader(testset, batch_size=1, shuffle=False, pin_memory=True)
     # load trained model
     print('Loading network ...')
-    weight_path = '.\\weights\\resnet18_2000.pth'
+    weight_path = '.\\weights\\resnet18_512.pth'
     model = resnet18()
     model.load_state_dict(torch.load(weight_path, map_location='cpu'), strict=True)
     model.eval()
@@ -110,11 +110,10 @@ def evaluate(arg):
     with torch.no_grad():
         for data in tqdm.tqdm(dataloader):
 
-            input_image, coord_ground_truth, bbox, file_name = data
+            input_image, coord_ground_truth, coord_xy, bbox, file_name = data
             bbox = bbox.squeeze().numpy()
             input_image = input_image.float()
-            # TODO: use coord_xy by get_item in dataload.py. Current use face_size normalization other two is not right
-            error_normalize_factor = calc_normalize_factor(arg.dataset, coord_ground_truth.numpy(), arg.norm_way) \
+            error_normalize_factor = calc_normalize_factor(arg.dataset, coord_xy.numpy(), arg.norm_way) \
                 if arg.norm_way in ['inter_pupil', 'inter_ocular'] else (bbox[2] - bbox[0])
             start = time.time()
             estimated_coord = model(input_image)
