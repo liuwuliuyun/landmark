@@ -6,7 +6,7 @@ import platform
 import torchvision.transforms as transforms
 from dataset import GeneralDataset
 from utils import args
-from models.resnet import resnet18
+from models.mobilenet_v2 import mobilenet_v2
 from torch.utils.tensorboard import SummaryWriter
 
 if not os.path.exists(args.save_folder):
@@ -32,9 +32,9 @@ def train(arg):
 
     print('Creating networks ...')
     if 'Windows' in platform.platform():
-        model = resnet18()
+        model = mobilenet_v2()
     else:
-        model = resnet18().cuda()
+        model = mobilenet_v2().cuda()
     trainset = GeneralDataset(dataset=arg.dataset)
     criterion = nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=arg.lr, weight_decay=arg.weight_decay)
@@ -64,7 +64,7 @@ def train(arg):
                 writer.add_scalar('loss', loss_, num_step)
         print('epoch: {} | loss: {}'.format(epoch, loss.item()))
         if (epoch + 1) % arg.save_interval == 0:
-            torch.save(model.state_dict(), arg.save_folder + 'resnet18_' + str(epoch + 1) + '.pth')
+            torch.save(model.state_dict(), arg.save_folder + '/mobilenet_v2/exp01/' + 'mbv2_' + str(epoch + 1) + '.pth')
 
 
 if __name__ == '__main__':
