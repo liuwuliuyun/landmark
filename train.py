@@ -6,7 +6,7 @@ import platform
 import torchvision.transforms as transforms
 from dataset import GeneralDataset
 from utils import args
-from models.mobilenet_v2 import mobilenet_v2
+from models.shufflenet_v2 import shufflenet_v2_x1_0
 from torch.utils.tensorboard import SummaryWriter
 
 if not os.path.exists(args.save_folder):
@@ -32,9 +32,9 @@ def train(arg):
 
     print('Creating networks ...')
     if 'Windows' in platform.platform():
-        model = mobilenet_v2()
+        model = shufflenet_v2_x1_0()
     else:
-        model = mobilenet_v2().cuda()
+        model = shufflenet_v2_x1_0().cuda()
     trainset = GeneralDataset(dataset=arg.dataset)
     criterion = nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=arg.lr, weight_decay=arg.weight_decay)
