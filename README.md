@@ -95,14 +95,34 @@ Training setup
 
 | Training epochs | Training batchsize |  LR  | Weight decay | Opt | Step Value |
 | :-------------: | :----------------: | ---  | :----------: | --- | :---------: |
-| 2000 | 4 | 2e-6 | 0 | Adam | None |
+| 992 | 4 | 2e-6 | 0 | Adam | None |
 
 Testing result
 
 | Mean Error | Failure Rate | AUC | Normalized Way |
 | :-------------: | :----------: | --- |:---:|
-| None | None | None | Face Size |
+| 10.70% | 44.48% | 0.2299 | Face Size |
 
+
+### ShuffleNet-V2
+#### Architecture
+1. Increase input size to 256*256
+3. Change output size to 192 (x1, y1, ... , x98, y98)
+#### Training Setup and testing results
+##### Experiment 1
+Training loss changed to log(1 + L2loss)
+
+Training setup
+
+| Training epochs | Training batchsize |  LR  | Weight decay | Opt | Step Value |
+| :-------------: | :----------------: | ---  | :----------: | --- | :---------: |
+| 700 | 4 | 2e-6 | 0 | Adam | None |
+
+Testing result
+
+| Mean Error | Failure Rate | AUC | Normalized Way |
+| :-------------: | :----------: | --- |:---:|
+| 10.83% | 45.04% | 0.2241 | Face Size |
 
 
 #### TODO list
