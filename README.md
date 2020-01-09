@@ -76,7 +76,7 @@ Training setup
 | :-------------: | :----------------: | ---  | :----------: | --- | :---------: |
 | 512 | 4 | 2e-6 | 0 | Adam | None |
 
-Testing result (Ongoing)
+Testing result
 
 | Mean Error | Failure Rate | AUC | Normalized Way |
 | :-------------: | :----------: | --- |:---:|
@@ -97,11 +97,17 @@ Training setup
 | :-------------: | :----------------: | ---  | :----------: | --- | :---------: |
 | 992 | 4 | 2e-6 | 0 | Adam | None |
 
-Testing result
+Testing result (mbv2_992.pth)
 
 | Mean Error | Failure Rate | AUC | Normalized Way |
 | :-------------: | :----------: | --- |:---:|
 | 10.70% | 44.48% | 0.2299 | Face Size |
+
+Testing result (mbv2_512.pth)
+
+| Mean Error | Failure Rate | AUC | Normalized Way |
+| :-------------: | :----------: | --- |:---:|
+| 10.45% | 42.00% | 0.2427 | Face Size |
 
 
 ### ShuffleNet-V2
