@@ -34,7 +34,7 @@ pickleshare==0.7.5
 Pillow==9.0.1
 progress==1.5
 prompt-toolkit==3.0.2
-protobuf==3.10.0
+protobuf==3.15.0
 pycodestyle==2.5.0
 Pygments==2.5.2
 pyparsing==2.4.2
