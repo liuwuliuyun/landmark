@@ -9,7 +9,7 @@ kiwisolver==1.1.0
 llvmlite==0.29.0
 matplotlib==3.0.2
 numba==0.45.1
-numpy==1.18.0
+numpy==1.21.0
 opencv-python==4.1.1.26
 parso==0.5.2
 pexpect==4.7.0
