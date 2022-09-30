@@ -4,7 +4,7 @@ Cython==0.29.13
 decorator==4.4.1
 easydict==1.9
 jedi==0.15.2
-joblib==0.14.1
+joblib==1.2.0
 kiwisolver==1.1.0
 llvmlite==0.29.0
 matplotlib==3.0.2
