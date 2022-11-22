@@ -31,7 +31,7 @@ numpy==1.21.0
 opencv-python==4.2.0.32
 parso==0.5.2
 pickleshare==0.7.5
-Pillow==9.0.1
+Pillow==9.3.0
 progress==1.5
 prompt-toolkit==3.0.2
 protobuf==3.15.0
